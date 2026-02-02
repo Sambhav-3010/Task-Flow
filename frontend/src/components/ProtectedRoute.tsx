@@ -4,11 +4,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth';
 
-interface ProtectedRouteProps {
-    children: React.ReactNode;
-}
-
-export default function ProtectedRoute({ children }: ProtectedRouteProps) {
+export default function ProtectedRoute({ children }: { children: React.ReactNode }) {
     const { user, loading } = useAuth();
     const router = useRouter();
 
@@ -20,10 +16,10 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-[var(--background)]">
+            <div className="min-h-screen flex items-center justify-center bg-pattern">
                 <div className="text-center">
                     <div className="loading-spinner mx-auto mb-4"></div>
-                    <p className="text-gray-600 font-medium">Loading...</p>
+                    <p className="font-bold text-lg">Loading...</p>
                 </div>
             </div>
         );

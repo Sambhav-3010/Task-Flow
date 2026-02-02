@@ -93,18 +93,18 @@ export default function TaskModal({ isOpen, onClose, onSubmit, task }: TaskModal
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
             <div
-                className="absolute inset-0 bg-black/50"
+                className="absolute inset-0 bg-black/60"
                 onClick={onClose}
             ></div>
 
-            <div className="neo-card p-6 w-full max-w-md relative animate-bounce-in">
+            <div className="neo-card p-8 w-full max-w-md relative animate-bounce-in bg-[var(--accent)]">
                 <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-xl font-black uppercase tracking-wide">
+                    <h2 className="text-2xl font-black uppercase tracking-wide">
                         {task ? 'Edit Task' : 'New Task'}
                     </h2>
                     <button
                         onClick={onClose}
-                        className="p-2 hover:bg-[var(--foreground)] hover:text-white transition-colors border-2 border-[var(--border)]"
+                        className="p-2 bg-white border-3 border-black shadow-[3px_3px_0px_black] hover:bg-black hover:text-white transition-colors"
                     >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
@@ -112,42 +112,42 @@ export default function TaskModal({ isOpen, onClose, onSubmit, task }: TaskModal
                     </button>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form onSubmit={handleSubmit} className="space-y-5">
                     <div>
-                        <label className="block text-sm font-bold mb-2 uppercase tracking-wide">
+                        <label className="block text-sm font-black mb-2 uppercase tracking-wide">
                             Title *
                         </label>
                         <input
                             type="text"
                             value={formData.title}
                             onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                            className={`neo-input ${errors.title ? 'border-[var(--error)]' : ''}`}
+                            className={`neo-input ${errors.title ? 'border-[var(--primary)]' : ''}`}
                             placeholder="What needs to be done?"
                         />
                         {errors.title && (
-                            <p className="text-[var(--error)] text-sm mt-1 font-medium">{errors.title}</p>
+                            <p className="text-[var(--primary)] text-sm mt-1 font-bold">{errors.title}</p>
                         )}
                     </div>
 
                     <div>
-                        <label className="block text-sm font-bold mb-2 uppercase tracking-wide">
+                        <label className="block text-sm font-black mb-2 uppercase tracking-wide">
                             Description
                         </label>
                         <textarea
                             value={formData.description}
                             onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                            className={`neo-input min-h-[100px] resize-none ${errors.description ? 'border-[var(--error)]' : ''}`}
+                            className={`neo-input min-h-[100px] resize-none ${errors.description ? 'border-[var(--primary)]' : ''}`}
                             placeholder="Add more details..."
                         />
-                        <p className="text-xs text-gray-500 mt-1">{formData.description.length}/500</p>
+                        <p className="text-xs text-gray-600 mt-1 font-medium">{formData.description.length}/500</p>
                         {errors.description && (
-                            <p className="text-[var(--error)] text-sm mt-1 font-medium">{errors.description}</p>
+                            <p className="text-[var(--primary)] text-sm mt-1 font-bold">{errors.description}</p>
                         )}
                     </div>
 
                     <div className="grid grid-cols-2 gap-4">
                         <div>
-                            <label className="block text-sm font-bold mb-2 uppercase tracking-wide">
+                            <label className="block text-sm font-black mb-2 uppercase tracking-wide">
                                 Status
                             </label>
                             <select
@@ -162,7 +162,7 @@ export default function TaskModal({ isOpen, onClose, onSubmit, task }: TaskModal
                         </div>
 
                         <div>
-                            <label className="block text-sm font-bold mb-2 uppercase tracking-wide">
+                            <label className="block text-sm font-black mb-2 uppercase tracking-wide">
                                 Priority
                             </label>
                             <select
@@ -178,7 +178,7 @@ export default function TaskModal({ isOpen, onClose, onSubmit, task }: TaskModal
                     </div>
 
                     {errors.form && (
-                        <div className="p-4 bg-[var(--error)] text-white font-medium border-3 border-[var(--border)]">
+                        <div className="p-4 bg-[var(--primary)] text-white font-bold border-4 border-black">
                             {errors.form}
                         </div>
                     )}

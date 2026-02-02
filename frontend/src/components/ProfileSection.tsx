@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '@/lib/auth';
 import api from '@/lib/api';
 import toast from 'react-hot-toast';
@@ -9,119 +9,103 @@ export default function ProfileSection() {
     const { user, updateUser } = useAuth();
     const [editing, setEditing] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [formData, setFormData] = useState({
-        name: user?.name || '',
-        bio: user?.bio || '',
-    });
+    const [formData, setFormData] = useState({ name: '', bio: '' });
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
+    useEffect(() => {
+        if (user) {
+            setFormData({ name: user.name || '', bio: user.bio || '' });
+        }
+    }, [user]);
+
+    const handleSave = async () => {
+        if (!formData.name.trim()) {
+            toast.error('Name is required');
+            return;
+        }
+
         setLoading(true);
-
         try {
             const response = await api.put('/me', formData);
             updateUser(response.data.data);
             setEditing(false);
             toast.success('Profile updated!');
-        } catch (error: unknown) {
-            const err = error as { response?: { data?: { message?: string } } };
-            toast.error(err.response?.data?.message || 'Failed to update profile');
+        } catch {
+            toast.error('Failed to update profile');
         } finally {
             setLoading(false);
         }
     };
 
-    const handleCancel = () => {
-        setFormData({
-            name: user?.name || '',
-            bio: user?.bio || '',
-        });
-        setEditing(false);
-    };
-
     return (
-        <div className="neo-card p-6">
+        <div className="neo-card p-6 text-white" style={{ background: 'var(--blue)' }}>
             <div className="flex items-center justify-between mb-6">
                 <h2 className="text-xl font-black uppercase tracking-wide">Profile</h2>
-                {!editing && (
+                {!editing ? (
                     <button
                         onClick={() => setEditing(true)}
-                        className="neo-button neo-button-outline py-2 px-4 text-sm"
+                        className="p-2 bg-white text-black border-3 border-black shadow-[3px_3px_0px_black] hover:shadow-[4px_4px_0px_black] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
                     >
-                        Edit
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                        </svg>
                     </button>
+                ) : (
+                    <div className="flex gap-2">
+                        <button
+                            onClick={handleSave}
+                            disabled={loading}
+                            className="p-2 bg-[var(--secondary)] text-black border-3 border-black shadow-[3px_3px_0px_black] hover:shadow-[4px_4px_0px_black] transition-all"
+                        >
+                            {loading ? '...' : '✓'}
+                        </button>
+                        <button
+                            onClick={() => {
+                                setEditing(false);
+                                setFormData({ name: user?.name || '', bio: user?.bio || '' });
+                            }}
+                            className="p-2 bg-white text-black border-3 border-black shadow-[3px_3px_0px_black] hover:shadow-[4px_4px_0px_black] transition-all"
+                        >
+                            ✕
+                        </button>
+                    </div>
                 )}
             </div>
 
-            {editing ? (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <label className="block text-sm font-bold mb-2 uppercase tracking-wide">
-                            Name
-                        </label>
+            <div className="flex items-center gap-4 mb-6">
+                <div className="w-16 h-16 bg-[var(--accent)] border-4 border-black flex items-center justify-center text-3xl font-black text-black shadow-[4px_4px_0px_black]">
+                    {user?.name?.charAt(0).toUpperCase() || 'U'}
+                </div>
+                <div className="flex-1 min-w-0">
+                    {editing ? (
                         <input
                             type="text"
                             value={formData.name}
                             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            className="neo-input"
-                            maxLength={50}
+                            className="neo-input text-black font-bold"
+                            placeholder="Your name"
                         />
-                    </div>
-                    <div>
-                        <label className="block text-sm font-bold mb-2 uppercase tracking-wide">
-                            Bio
-                        </label>
-                        <textarea
-                            value={formData.bio}
-                            onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
-                            className="neo-input min-h-[100px] resize-none"
-                            maxLength={200}
-                            placeholder="Tell us about yourself..."
-                        />
-                        <p className="text-xs text-gray-500 mt-1">{formData.bio.length}/200</p>
-                    </div>
-                    <div className="flex gap-3">
-                        <button
-                            type="submit"
-                            disabled={loading}
-                            className="neo-button py-2 px-4 text-sm flex items-center gap-2"
-                        >
-                            {loading ? (
-                                <>
-                                    <div className="loading-spinner w-4 h-4 border-2"></div>
-                                    Saving...
-                                </>
-                            ) : (
-                                'Save Changes'
-                            )}
-                        </button>
-                        <button
-                            type="button"
-                            onClick={handleCancel}
-                            className="neo-button neo-button-outline py-2 px-4 text-sm"
-                        >
-                            Cancel
-                        </button>
-                    </div>
-                </form>
-            ) : (
-                <div className="space-y-4">
-                    <div className="flex items-center gap-4">
-                        <div className="w-16 h-16 bg-[var(--primary)] text-white text-2xl font-black flex items-center justify-center border-3 border-[var(--border)] shadow-[4px_4px_0px_var(--border)]">
-                            {user?.name?.charAt(0).toUpperCase()}
-                        </div>
-                        <div>
-                            <h3 className="text-xl font-bold">{user?.name}</h3>
-                            <p className="text-gray-500">{user?.email}</p>
-                        </div>
-                    </div>
-                    {user?.bio && (
-                        <div className="p-4 bg-[var(--background)] border-2 border-[var(--border)]">
-                            <p className="text-gray-700">{user.bio}</p>
-                        </div>
+                    ) : (
+                        <>
+                            <p className="font-black text-xl truncate">{user?.name}</p>
+                            <p className="text-white/80 truncate">{user?.email}</p>
+                        </>
                     )}
                 </div>
-            )}
+            </div>
+
+            <div>
+                <label className="block text-sm font-bold mb-2 uppercase tracking-wide text-white/80">Bio</label>
+                {editing ? (
+                    <textarea
+                        value={formData.bio}
+                        onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
+                        className="neo-input text-black min-h-[80px] resize-none"
+                        placeholder="Tell us about yourself..."
+                    />
+                ) : (
+                    <p className="text-white/90">{user?.bio || 'No bio yet. Click edit to add one!'}</p>
+                )}
+            </div>
         </div>
     );
 }

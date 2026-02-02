@@ -35,13 +35,13 @@ const statusLabels = {
 
 export default function TaskCard({ task, onEdit, onDelete }: TaskCardProps) {
     return (
-        <div className="neo-card p-5 animate-slide-up">
+        <div className="neo-card p-5 animate-slide-up bg-white">
             <div className="flex items-start justify-between gap-4 mb-3">
-                <h3 className="font-bold text-lg flex-1 break-words">{task.title}</h3>
+                <h3 className="font-black text-lg flex-1 break-words">{task.title}</h3>
                 <div className="flex gap-2">
                     <button
                         onClick={() => onEdit(task)}
-                        className="p-2 hover:bg-[var(--secondary)] hover:text-white transition-colors border-2 border-[var(--border)]"
+                        className="p-2 bg-[var(--accent)] border-3 border-black shadow-[3px_3px_0px_black] hover:shadow-[4px_4px_0px_black] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
                         title="Edit"
                     >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -50,7 +50,7 @@ export default function TaskCard({ task, onEdit, onDelete }: TaskCardProps) {
                     </button>
                     <button
                         onClick={() => onDelete(task._id)}
-                        className="p-2 hover:bg-[var(--error)] hover:text-white transition-colors border-2 border-[var(--border)]"
+                        className="p-2 bg-[var(--primary)] text-white border-3 border-black shadow-[3px_3px_0px_black] hover:shadow-[4px_4px_0px_black] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
                         title="Delete"
                     >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -73,8 +73,8 @@ export default function TaskCard({ task, onEdit, onDelete }: TaskCardProps) {
                 </span>
             </div>
 
-            <p className="text-xs text-gray-400">
-                Created {new Date(task.createdAt).toLocaleDateString('en-US', {
+            <p className="text-xs text-gray-400 font-bold">
+                {new Date(task.createdAt).toLocaleDateString('en-US', {
                     month: 'short',
                     day: 'numeric',
                     year: 'numeric'

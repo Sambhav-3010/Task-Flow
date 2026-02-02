@@ -89,7 +89,7 @@ export default function DashboardPage() {
 
     return (
         <ProtectedRoute>
-            <div className="min-h-screen bg-[var(--background)]">
+            <div className="min-h-screen bg-pattern">
                 <Navbar />
 
                 <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -97,24 +97,24 @@ export default function DashboardPage() {
                         <div className="lg:col-span-1 space-y-6">
                             <ProfileSection />
 
-                            <div className="neo-card p-6">
+                            <div className="neo-card p-6 bg-[var(--secondary)]">
                                 <h2 className="text-xl font-black uppercase tracking-wide mb-4">Stats</h2>
                                 <div className="grid grid-cols-2 gap-4">
-                                    <div className="p-4 bg-[var(--background)] border-2 border-[var(--border)] text-center">
-                                        <p className="text-3xl font-black text-[var(--primary)]">{taskStats.total}</p>
-                                        <p className="text-xs font-bold uppercase text-gray-500">Total</p>
+                                    <div className="p-4 bg-white border-4 border-black shadow-[4px_4px_0px_black] text-center">
+                                        <p className="text-3xl font-black text-[var(--purple)]">{taskStats.total}</p>
+                                        <p className="text-xs font-bold uppercase">Total</p>
                                     </div>
-                                    <div className="p-4 bg-[var(--background)] border-2 border-[var(--border)] text-center">
-                                        <p className="text-3xl font-black text-[var(--warning)]">{taskStats.pending}</p>
-                                        <p className="text-xs font-bold uppercase text-gray-500">Pending</p>
+                                    <div className="p-4 bg-white border-4 border-black shadow-[4px_4px_0px_black] text-center">
+                                        <p className="text-3xl font-black text-[var(--accent)]">{taskStats.pending}</p>
+                                        <p className="text-xs font-bold uppercase">Pending</p>
                                     </div>
-                                    <div className="p-4 bg-[var(--background)] border-2 border-[var(--border)] text-center">
-                                        <p className="text-3xl font-black text-[var(--secondary)]">{taskStats.inProgress}</p>
-                                        <p className="text-xs font-bold uppercase text-gray-500">In Progress</p>
+                                    <div className="p-4 bg-white border-4 border-black shadow-[4px_4px_0px_black] text-center">
+                                        <p className="text-3xl font-black text-[var(--blue)]">{taskStats.inProgress}</p>
+                                        <p className="text-xs font-bold uppercase">In Progress</p>
                                     </div>
-                                    <div className="p-4 bg-[var(--background)] border-2 border-[var(--border)] text-center">
-                                        <p className="text-3xl font-black text-[var(--success)]">{taskStats.completed}</p>
-                                        <p className="text-xs font-bold uppercase text-gray-500">Done</p>
+                                    <div className="p-4 bg-white border-4 border-black shadow-[4px_4px_0px_black] text-center">
+                                        <p className="text-3xl font-black text-[var(--secondary)]">{taskStats.completed}</p>
+                                        <p className="text-xs font-bold uppercase">Done</p>
                                     </div>
                                 </div>
                             </div>
@@ -123,7 +123,7 @@ export default function DashboardPage() {
                         <div className="lg:col-span-2">
                             <div className="neo-card p-6 mb-6">
                                 <div className="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between mb-6">
-                                    <h2 className="text-xl font-black uppercase tracking-wide">Tasks</h2>
+                                    <h2 className="text-2xl font-black uppercase tracking-wide">My Tasks</h2>
                                     <button onClick={openCreateModal} className="neo-button py-2 px-4 text-sm">
                                         + New Task
                                     </button>
@@ -166,17 +166,17 @@ export default function DashboardPage() {
                                         <div className="loading-spinner"></div>
                                     </div>
                                 ) : tasks.length === 0 ? (
-                                    <div className="text-center py-12">
+                                    <div className="text-center py-12 bg-[var(--accent)] border-4 border-black shadow-[6px_6px_0px_black] p-8">
                                         <div className="text-6xl mb-4">📝</div>
-                                        <h3 className="text-xl font-bold mb-2">No tasks found</h3>
-                                        <p className="text-gray-500 mb-4">
+                                        <h3 className="text-2xl font-black mb-2">No tasks found</h3>
+                                        <p className="text-black/70 mb-6 font-medium">
                                             {search || statusFilter || priorityFilter
                                                 ? 'Try adjusting your filters'
                                                 : 'Create your first task to get started'}
                                         </p>
                                         {!search && !statusFilter && !priorityFilter && (
                                             <button onClick={openCreateModal} className="neo-button">
-                                                Create Task
+                                                Create Your First Task
                                             </button>
                                         )}
                                     </div>
@@ -206,15 +206,14 @@ export default function DashboardPage() {
 
                 {deleteConfirm && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                        <div className="absolute inset-0 bg-black/50" onClick={() => setDeleteConfirm(null)}></div>
-                        <div className="neo-card p-6 relative animate-bounce-in max-w-sm w-full">
-                            <h3 className="text-xl font-black mb-4">Delete Task?</h3>
-                            <p className="text-gray-600 mb-6">This action cannot be undone.</p>
+                        <div className="absolute inset-0 bg-black/60" onClick={() => setDeleteConfirm(null)}></div>
+                        <div className="neo-card p-8 relative animate-bounce-in max-w-sm w-full bg-white">
+                            <h3 className="text-2xl font-black mb-4">Delete Task?</h3>
+                            <p className="text-gray-600 mb-6 font-medium">This action cannot be undone.</p>
                             <div className="flex gap-3">
                                 <button
                                     onClick={() => handleDeleteTask(deleteConfirm)}
                                     className="neo-button flex-1"
-                                    style={{ background: 'var(--error)' }}
                                 >
                                     Delete
                                 </button>
