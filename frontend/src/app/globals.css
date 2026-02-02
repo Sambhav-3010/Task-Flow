@@ -1,0 +1,243 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #ff6b35;
+  --primary-hover: #e55a2b;
+  --secondary: #4ecdc4;
+  --accent: #ffe66d;
+  --background: #fef9f3;
+  --foreground: #1a1a2e;
+  --card: #ffffff;
+  --border: #1a1a2e;
+  --success: #2ecc71;
+  --error: #e74c3c;
+  --warning: #f39c12;
+  --shadow: 4px 4px 0px #1a1a2e;
+  --shadow-hover: 6px 6px 0px #1a1a2e;
+  --radius: 0px;
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-warning: var(--warning);
+  --font-sans: "Inter", system-ui, sans-serif;
+}
+
+* {
+  border-radius: var(--radius);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}
+
+.neo-card {
+  background: var(--card);
+  border: 3px solid var(--border);
+  box-shadow: var(--shadow);
+  transition: all 0.2s ease;
+}
+
+.neo-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translate(-2px, -2px);
+}
+
+.neo-button {
+  background: var(--primary);
+  color: white;
+  border: 3px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 12px 24px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.neo-button:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translate(-2px, -2px);
+  background: var(--primary-hover);
+}
+
+.neo-button:active {
+  box-shadow: 2px 2px 0px var(--border);
+  transform: translate(2px, 2px);
+}
+
+.neo-button-secondary {
+  background: var(--secondary);
+}
+
+.neo-button-secondary:hover {
+  background: #3dbdb5;
+}
+
+.neo-button-outline {
+  background: transparent;
+  color: var(--foreground);
+}
+
+.neo-button-outline:hover {
+  background: var(--foreground);
+  color: white;
+}
+
+.neo-input {
+  background: var(--card);
+  border: 3px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 12px 16px;
+  font-size: 16px;
+  width: 100%;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.neo-input:focus {
+  box-shadow: var(--shadow-hover);
+  transform: translate(-2px, -2px);
+  border-color: var(--primary);
+}
+
+.neo-input::placeholder {
+  color: #888;
+}
+
+.neo-select {
+  background: var(--card);
+  border: 3px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 12px 16px;
+  font-size: 16px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%231a1a2e' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+  padding-right: 48px;
+}
+
+.neo-select:focus {
+  outline: none;
+  border-color: var(--primary);
+}
+
+.neo-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 2px solid var(--border);
+  box-shadow: 2px 2px 0px var(--border);
+}
+
+.neo-badge-pending {
+  background: var(--warning);
+}
+
+.neo-badge-in-progress {
+  background: var(--secondary);
+}
+
+.neo-badge-completed {
+  background: var(--success);
+  color: white;
+}
+
+.neo-badge-low {
+  background: #ddd;
+}
+
+.neo-badge-medium {
+  background: var(--accent);
+}
+
+.neo-badge-high {
+  background: var(--error);
+  color: white;
+}
+
+.neo-link {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  border-bottom: 2px solid var(--primary);
+  transition: all 0.2s ease;
+}
+
+.neo-link:hover {
+  background: var(--primary);
+  color: white;
+}
+
+.neo-divider {
+  border: none;
+  border-top: 3px solid var(--border);
+  margin: 24px 0;
+}
+
+.animate-bounce-in {
+  animation: bounceIn 0.5s ease;
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid var(--border);
+  border-top-color: var(--primary);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
