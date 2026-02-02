@@ -51,13 +51,13 @@ export default function DashboardPage() {
         return () => clearTimeout(debounce);
     }, [fetchTasks]);
 
-    const handleCreateTask = async (data: Omit<Task, '_id' | 'createdAt'>) => {
+    const handleCreateTask = async (data: { title: string; description: string; status: 'pending' | 'in-progress' | 'completed'; priority: 'low' | 'medium' | 'high' }) => {
         const response = await api.post('/tasks', data);
         setTasks(prev => [response.data.data, ...prev]);
         toast.success('Task created!');
     };
 
-    const handleUpdateTask = async (data: Task) => {
+    const handleUpdateTask = async (data: { title: string; description: string; status: 'pending' | 'in-progress' | 'completed'; priority: 'low' | 'medium' | 'high'; _id?: string }) => {
         const response = await api.put(`/tasks/${data._id}`, data);
         setTasks(prev => prev.map(t => t._id === data._id ? response.data.data : t));
         toast.success('Task updated!');

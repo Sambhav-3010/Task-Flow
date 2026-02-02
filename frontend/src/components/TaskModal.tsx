@@ -13,17 +13,22 @@ interface Task {
 interface TaskModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onSubmit: (data: Omit<Task, '_id'> | Task) => Promise<void>;
+    onSubmit: (data: { title: string; description: string; status: 'pending' | 'in-progress' | 'completed'; priority: 'low' | 'medium' | 'high'; _id?: string }) => Promise<void>;
     task?: Task | null;
 }
 
 export default function TaskModal({ isOpen, onClose, onSubmit, task }: TaskModalProps) {
     const [loading, setLoading] = useState(false);
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = useState<{
+        title: string;
+        description: string;
+        status: 'pending' | 'in-progress' | 'completed';
+        priority: 'low' | 'medium' | 'high';
+    }>({
         title: '',
         description: '',
-        status: 'pending' as const,
-        priority: 'medium' as const,
+        status: 'pending',
+        priority: 'medium',
     });
     const [errors, setErrors] = useState<Record<string, string>>({});
 
