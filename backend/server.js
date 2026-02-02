@@ -4,6 +4,8 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 import authRoutes from './routes/authRoutes.js';
+import profileRoutes from './routes/profileRoutes.js';
+import taskRoutes from './routes/taskRoutes.js';
 
 dotenv.config();
 
@@ -15,9 +17,11 @@ app.use(cors({
 }));
 app.use(express.json());
 
-app.use('/api/v1/auth', authRoutes);
+app.use('/api/auth', authRoutes);
+app.use('/api/me', profileRoutes);
+app.use('/api/tasks', taskRoutes);
 
-app.get('/api/v1/health', (req, res) => {
+app.get('/api/health', (req, res) => {
     res.json({ success: true, message: 'Server is running' });
 });
 
