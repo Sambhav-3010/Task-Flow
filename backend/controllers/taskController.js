@@ -51,11 +51,26 @@ export const getTasks = async (req, res) => {
         if (sort === 'oldest') sortOption = { createdAt: 1 };
         if (sort === 'priority') sortOption = { priority: -1 };
 
-        const tasks = await Task.find(query).sort(sortOption);
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 10;
+        const skip = (page - 1) * limit;
+
+        const tasks = await Task.find(query)
+            .sort(sortOption)
+            .skip(skip)
+            .limit(limit);
+
+        const total = await Task.countDocuments(query);
 
         res.status(200).json({
             success: true,
             count: tasks.length,
+            pagination: {
+                page,
+                limit,
+                total,
+                pages: Math.ceil(total / limit)
+            },
             data: tasks
         });
     } catch (error) {

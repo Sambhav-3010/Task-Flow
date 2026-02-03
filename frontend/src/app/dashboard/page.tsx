@@ -28,21 +28,28 @@ export default function DashboardPage() {
     const [editingTask, setEditingTask] = useState<Task | null>(null);
     const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
 
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
+    const limit = 9;
+
     const fetchTasks = useCallback(async () => {
         try {
             const params = new URLSearchParams();
             if (search) params.append('search', search);
             if (statusFilter) params.append('status', statusFilter);
             if (priorityFilter) params.append('priority', priorityFilter);
+            params.append('page', page.toString());
+            params.append('limit', limit.toString());
 
             const response = await api.get(`/tasks?${params.toString()}`);
             setTasks(response.data.data);
+            setTotalPages(response.data.pagination.pages);
         } catch {
             toast.error('Failed to fetch tasks');
         } finally {
             setLoading(false);
         }
-    }, [search, statusFilter, priorityFilter]);
+    }, [search, statusFilter, priorityFilter, page]);
 
     useEffect(() => {
         const debounce = setTimeout(() => {
@@ -135,13 +142,13 @@ export default function DashboardPage() {
                                             type="text"
                                             placeholder="Search tasks..."
                                             value={search}
-                                            onChange={(e) => setSearch(e.target.value)}
+                                            onChange={(e) => { setSearch(e.target.value); setPage(1); }}
                                             className="neo-input"
                                         />
                                     </div>
                                     <select
                                         value={statusFilter}
-                                        onChange={(e) => setStatusFilter(e.target.value)}
+                                        onChange={(e) => { setStatusFilter(e.target.value); setPage(1); }}
                                         className="neo-select"
                                     >
                                         <option value="">All Status</option>
@@ -151,7 +158,7 @@ export default function DashboardPage() {
                                     </select>
                                     <select
                                         value={priorityFilter}
-                                        onChange={(e) => setPriorityFilter(e.target.value)}
+                                        onChange={(e) => { setPriorityFilter(e.target.value); setPage(1); }}
                                         className="neo-select"
                                     >
                                         <option value="">All Priority</option>
@@ -192,6 +199,28 @@ export default function DashboardPage() {
                                         ))}
                                     </div>
                                 )}
+
+                                {totalPages > 1 && (
+                                    <div className="flex justify-center items-center gap-4 mt-8">
+                                        <button
+                                            onClick={() => setPage(p => Math.max(1, p - 1))}
+                                            disabled={page === 1}
+                                            className="neo-button disabled:opacity-50 disabled:cursor-not-allowed text-sm py-2 px-4"
+                                        >
+                                            ← Previous
+                                        </button>
+                                        <span className="font-bold">
+                                            Page {page} of {totalPages}
+                                        </span>
+                                        <button
+                                            onClick={() => setPage(p => Math.min(totalPages, p + 1))}
+                                            disabled={page === totalPages}
+                                            className="neo-button disabled:opacity-50 disabled:cursor-not-allowed text-sm py-2 px-4"
+                                        >
+                                            Next →
+                                        </button>
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -204,30 +233,32 @@ export default function DashboardPage() {
                     task={editingTask}
                 />
 
-                {deleteConfirm && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-                        <div className="absolute inset-0 bg-black/60" onClick={() => setDeleteConfirm(null)}></div>
-                        <div className="neo-card p-8 relative animate-bounce-in max-w-sm w-full bg-white">
-                            <h3 className="text-2xl font-black mb-4">Delete Task?</h3>
-                            <p className="text-gray-600 mb-6 font-medium">This action cannot be undone.</p>
-                            <div className="flex gap-3">
-                                <button
-                                    onClick={() => handleDeleteTask(deleteConfirm)}
-                                    className="neo-button flex-1"
-                                >
-                                    Delete
-                                </button>
-                                <button
-                                    onClick={() => setDeleteConfirm(null)}
-                                    className="neo-button neo-button-outline flex-1"
-                                >
-                                    Cancel
-                                </button>
+                {
+                    deleteConfirm && (
+                        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+                            <div className="absolute inset-0 bg-black/60" onClick={() => setDeleteConfirm(null)}></div>
+                            <div className="neo-card p-8 relative animate-bounce-in max-w-sm w-full bg-white">
+                                <h3 className="text-2xl font-black mb-4">Delete Task?</h3>
+                                <p className="text-gray-600 mb-6 font-medium">This action cannot be undone.</p>
+                                <div className="flex gap-3">
+                                    <button
+                                        onClick={() => handleDeleteTask(deleteConfirm as string)}
+                                        className="neo-button flex-1"
+                                    >
+                                        Delete
+                                    </button>
+                                    <button
+                                        onClick={() => setDeleteConfirm(null)}
+                                        className="neo-button neo-button-outline flex-1"
+                                    >
+                                        Cancel
+                                    </button>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                )}
-            </div>
-        </ProtectedRoute>
+                    )
+                }
+            </div >
+        </ProtectedRoute >
     );
 }

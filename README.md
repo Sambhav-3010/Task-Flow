@@ -43,9 +43,24 @@ A full-stack task management application with authentication, built with Next.js
 
 ### Prerequisites
 
-- Node.js 18+
+- Node.js
 - MongoDB (local or Atlas)
 - pnpm
+- Docker & Docker Compose (optional)
+
+### Docker Setup (Quick Start)
+
+Run the application using Docker Compose:
+
+```bash
+docker-compose up --build
+```
+
+- Frontend: [http://localhost:3000](http://localhost:3000)
+- Backend: [http://localhost:5000](http://localhost:5000)
+- API Docs: [http://localhost:5000/api-docs](http://localhost:5000/api-docs)
+
+### Manual Setup
 
 ### Backend Setup
 
@@ -80,7 +95,7 @@ cp .env.example .env.local
 Edit `.env.local`:
 
 ```
-NEXT_PUBLIC_API_URL=http://localhost:5000/api/
+NEXT_PUBLIC_API_URL=http://localhost:5000/api/v1
 ```
 
 Install and run:
@@ -111,6 +126,15 @@ pnpm dev
 - `DELETE /api/v1/tasks/:id` - Delete task
 
 ## Demo Credentials
+
+### Seeding Data
+
+To populate the database with a test user and initial tasks, run:
+
+```bash
+cd backend
+npm run seed
+```
 
 Create an account using the signup form, or use these after seeding:
 
