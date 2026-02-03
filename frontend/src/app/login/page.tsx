@@ -63,8 +63,8 @@ export default function LoginPage() {
 
     return (
         <div className="min-h-screen flex flex-col bg-pattern">
-            <header className="p-6 flex justify-between items-center border-b-4 border-black bg-white">
-                <Link href="/" className="text-3xl font-black tracking-tight">
+            <header className="p-4 md:p-6 flex justify-between items-center border-b-4 border-black bg-white">
+                <Link href="/" className="text-2xl md:text-3xl font-black tracking-tight">
                     TASK<span className="bg-[var(--primary)] text-white px-2">FLOW</span>
                 </Link>
             </header>
