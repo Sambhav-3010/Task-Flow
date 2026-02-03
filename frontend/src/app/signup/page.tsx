@@ -42,6 +42,8 @@ export default function SignupPage() {
             newErrors.password = 'Password is required';
         } else if (formData.password.length < 6) {
             newErrors.password = 'Password must be at least 6 characters';
+        } else if (!/\d/.test(formData.password)) {
+            newErrors.password = 'Password must contain at least one number';
         }
 
         if (formData.password !== formData.confirmPassword) {
@@ -62,9 +64,24 @@ export default function SignupPage() {
         try {
             await signup(formData.name, formData.email, formData.password);
             router.push('/dashboard');
-        } catch (err: unknown) {
-            const error = err as { response?: { data?: { message?: string } } };
-            setErrors({ form: error.response?.data?.message || 'Signup failed' });
+        } catch (err: any) {
+            const errorMessage = err.response?.data?.message || 'Signup failed';
+
+            // If we have specific field errors from backend
+            if (err.response?.data?.errors && Array.isArray(err.response.data.errors)) {
+                const backendErrors = err.response.data.errors;
+                const newErrors: Record<string, string> = { form: errorMessage };
+
+                backendErrors.forEach((error: { field: string; message: string }) => {
+                    // Map backend 'path' to frontend form field names if they match
+                    if (error.field === 'name' || error.field === 'email' || error.field === 'password') {
+                        newErrors[error.field] = error.message;
+                    }
+                });
+                setErrors(newErrors);
+            } else {
+                setErrors({ form: errorMessage });
+            }
         } finally {
             setLoading(false);
         }
@@ -80,8 +97,8 @@ export default function SignupPage() {
 
     return (
         <div className="min-h-screen flex flex-col bg-pattern">
-            <header className="p-6 flex justify-between items-center border-b-4 border-black bg-white">
-                <Link href="/" className="text-3xl font-black tracking-tight">
+            <header className="p-4 md:p-6 flex justify-between items-center border-b-4 border-black bg-white">
+                <Link href="/" className="text-2xl md:text-3xl font-black tracking-tight">
                     TASK<span className="bg-[var(--primary)] text-white px-2">FLOW</span>
                 </Link>
             </header>

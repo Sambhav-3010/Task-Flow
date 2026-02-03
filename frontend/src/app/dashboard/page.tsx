@@ -106,22 +106,22 @@ export default function DashboardPage() {
 
                             <div className="neo-card p-6 bg-[var(--secondary)]">
                                 <h2 className="text-xl font-black uppercase tracking-wide mb-4">Stats</h2>
-                                <div className="grid grid-cols-2 gap-4">
-                                    <div className="p-4 bg-white border-4 border-black shadow-[4px_4px_0px_black] text-center">
-                                        <p className="text-3xl font-black text-[var(--purple)]">{taskStats.total}</p>
-                                        <p className="text-xs font-bold uppercase">Total</p>
+                                <div className="grid grid-cols-2 gap-3 lg:gap-4">
+                                    <div className="p-2 lg:p-4 bg-white border-4 border-black shadow-[4px_4px_0px_black] text-center">
+                                        <p className="text-2xl lg:text-3xl font-black text-[var(--purple)]">{taskStats.total}</p>
+                                        <p className="text-[10px] lg:text-xs font-bold uppercase">Total</p>
                                     </div>
-                                    <div className="p-4 bg-white border-4 border-black shadow-[4px_4px_0px_black] text-center">
-                                        <p className="text-3xl font-black text-[var(--accent)]">{taskStats.pending}</p>
-                                        <p className="text-xs font-bold uppercase">Pending</p>
+                                    <div className="p-2 lg:p-4 bg-white border-4 border-black shadow-[4px_4px_0px_black] text-center">
+                                        <p className="text-2xl lg:text-3xl font-black text-[var(--accent)]">{taskStats.pending}</p>
+                                        <p className="text-[10px] lg:text-xs font-bold uppercase">Pending</p>
                                     </div>
-                                    <div className="p-4 bg-white border-4 border-black shadow-[4px_4px_0px_black] text-center">
-                                        <p className="text-3xl font-black text-[var(--blue)]">{taskStats.inProgress}</p>
-                                        <p className="text-xs font-bold uppercase">In Progress</p>
+                                    <div className="p-2 lg:p-4 bg-white border-4 border-black shadow-[4px_4px_0px_black] text-center">
+                                        <p className="text-2xl lg:text-3xl font-black text-[var(--blue)]">{taskStats.inProgress}</p>
+                                        <p className="text-[10px] lg:text-xs font-bold uppercase">Running</p>
                                     </div>
-                                    <div className="p-4 bg-white border-4 border-black shadow-[4px_4px_0px_black] text-center">
-                                        <p className="text-3xl font-black text-[var(--secondary)]">{taskStats.completed}</p>
-                                        <p className="text-xs font-bold uppercase">Done</p>
+                                    <div className="p-2 lg:p-4 bg-white border-4 border-black shadow-[4px_4px_0px_black] text-center">
+                                        <p className="text-2xl lg:text-3xl font-black text-[var(--secondary)]">{taskStats.completed}</p>
+                                        <p className="text-[10px] lg:text-xs font-bold uppercase">Done</p>
                                     </div>
                                 </div>
                             </div>

@@ -25,7 +25,7 @@ export default function Navbar() {
 
     return (
         <header className="p-4 lg:p-6 flex justify-between items-center border-b-4 border-black bg-white">
-            <Link href="/dashboard" className="text-2xl lg:text-3xl font-black tracking-tight">
+            <Link href="/dashboard" className="text-xl lg:text-3xl font-black tracking-tight">
                 TASK<span className="bg-[var(--primary)] text-white px-2">FLOW</span>
             </Link>
 

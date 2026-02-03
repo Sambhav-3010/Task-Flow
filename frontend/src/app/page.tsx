@@ -33,87 +33,87 @@ export default function Home() {
         </div>
       </div>
 
-      <header className="p-6 flex justify-between items-center border-b-4 border-black bg-white">
-        <h1 className="text-3xl font-black tracking-tight">
+      <header className="p-4 md:p-6 flex flex-col sm:flex-row justify-between items-center border-b-4 border-black bg-white gap-4 sm:gap-0">
+        <h1 className="text-2xl md:text-3xl font-black tracking-tight">
           TASK<span className="bg-[var(--primary)] text-white px-2">FLOW</span>
         </h1>
-        <nav className="flex gap-3">
-          <Link href="/about" className="neo-button neo-button-outline py-2 px-4 text-sm">
+        <nav className="flex gap-2 md:gap-3 w-full sm:w-auto justify-center">
+          <Link href="/about" className="neo-button neo-button-outline py-2 px-3 md:px-4 text-xs md:text-sm">
             About
           </Link>
-          <Link href="/login" className="neo-button neo-button-yellow py-2 px-4 text-sm">
+          <Link href="/login" className="neo-button neo-button-yellow py-2 px-3 md:px-4 text-xs md:text-sm">
             Login
           </Link>
-          <Link href="/signup" className="neo-button py-2 px-4 text-sm">
+          <Link href="/signup" className="neo-button py-2 px-3 md:px-4 text-xs md:text-sm">
             Sign Up
           </Link>
         </nav>
       </header>
 
       <main className="flex-1">
-        <section className="py-20 px-8">
+        <section className="py-12 md:py-20 px-4 md:px-8">
           <div className="max-w-6xl mx-auto">
-            <div className="grid lg:grid-cols-2 gap-12 items-center">
-              <div className="animate-fade-in">
-                <div className="inline-block bg-[var(--accent)] border-4 border-black px-4 py-2 mb-6 shadow-[4px_4px_0px_black]">
-                  <span className="font-black text-sm tracking-widest">NEW IN 2026</span>
+            <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
+              <div className="animate-fade-in text-center lg:text-left">
+                <div className="inline-block bg-[var(--accent)] border-4 border-black px-3 py-1 md:px-4 md:py-2 mb-4 md:mb-6 shadow-[4px_4px_0px_black]">
+                  <span className="font-black text-xs md:text-sm tracking-widest">NEW IN 2026</span>
                 </div>
-                <h2 className="text-6xl lg:text-7xl font-black leading-none mb-6">
+                <h2 className="text-4xl md:text-6xl lg:text-7xl font-black leading-tight mb-4 md:mb-6">
                   CRUSH YOUR
                   <span className="block text-[var(--primary)]">TO-DO LIST</span>
                 </h2>
-                <p className="text-xl mb-8 max-w-lg leading-relaxed">
+                <p className="text-lg md:text-xl mb-6 md:mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
                   A beautifully brutal task manager that helps you stay organized and productive. No fluff, just results.
                 </p>
-                <div className="flex flex-wrap gap-4">
-                  <Link href="/signup" className="neo-button text-lg">
+                <div className="flex flex-col sm:flex-row flex-wrap gap-4 justify-center lg:justify-start">
+                  <Link href="/signup" className="neo-button text-base md:text-lg w-full sm:w-auto text-center">
                     Get Started Free →
                   </Link>
-                  <Link href="/about" className="neo-button neo-button-outline text-lg">
+                  <Link href="/about" className="neo-button neo-button-outline text-base md:text-lg w-full sm:w-auto text-center">
                     Learn More
                   </Link>
                 </div>
               </div>
 
-              <div className="relative animate-slide-up">
-                <div className="neo-card p-8 bg-[var(--accent)]">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-4 h-4 bg-[var(--primary)] border-2 border-black"></div>
-                    <div className="w-4 h-4 bg-[var(--secondary)] border-2 border-black"></div>
-                    <div className="w-4 h-4 bg-[var(--blue)] border-2 border-black"></div>
+              <div className="relative animate-slide-up mt-8 lg:mt-0">
+                <div className="neo-card p-6 md:p-8 bg-[var(--accent)]">
+                  <div className="flex items-center gap-2 md:gap-3 mb-4">
+                    <div className="w-3 h-3 md:w-4 md:h-4 bg-[var(--primary)] border-2 border-black"></div>
+                    <div className="w-3 h-3 md:w-4 md:h-4 bg-[var(--secondary)] border-2 border-black"></div>
+                    <div className="w-3 h-3 md:w-4 md:h-4 bg-[var(--blue)] border-2 border-black"></div>
                   </div>
                   <div className="space-y-3">
-                    <div className="bg-white border-3 border-black p-4 shadow-[4px_4px_0px_black]">
+                    <div className="bg-white border-3 border-black p-3 md:p-4 shadow-[4px_4px_0px_black]">
                       <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 bg-[var(--success)] border-2 border-black flex items-center justify-center">✓</div>
-                        <span className="font-bold line-through text-gray-500">Design homepage</span>
+                        <div className="w-5 h-5 md:w-6 md:h-6 bg-[var(--success)] border-2 border-black flex items-center justify-center text-xs">✓</div>
+                        <span className="font-bold line-through text-gray-500 text-sm md:text-base">Design homepage</span>
                       </div>
                     </div>
-                    <div className="bg-white border-3 border-black p-4 shadow-[4px_4px_0px_black]">
+                    <div className="bg-white border-3 border-black p-3 md:p-4 shadow-[4px_4px_0px_black]">
                       <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 bg-[var(--blue)] border-2 border-black"></div>
-                        <span className="font-bold">Build dashboard</span>
-                        <span className="ml-auto neo-badge neo-badge-in-progress text-xs">In Progress</span>
+                        <div className="w-5 h-5 md:w-6 md:h-6 bg-[var(--blue)] border-2 border-black"></div>
+                        <span className="font-bold text-sm md:text-base">Build dashboard</span>
+                        <span className="ml-auto neo-badge neo-badge-in-progress text-[10px] md:text-xs">In Progress</span>
                       </div>
                     </div>
-                    <div className="bg-white border-3 border-black p-4 shadow-[4px_4px_0px_black]">
+                    <div className="bg-white border-3 border-black p-3 md:p-4 shadow-[4px_4px_0px_black]">
                       <div className="flex items-center gap-3">
-                        <div className="w-6 h-6 border-3 border-black bg-white"></div>
-                        <span className="font-bold">Write documentation</span>
-                        <span className="ml-auto neo-badge neo-badge-high text-xs">High</span>
+                        <div className="w-5 h-5 md:w-6 md:h-6 border-3 border-black bg-white"></div>
+                        <span className="font-bold text-sm md:text-base">Write documentation</span>
+                        <span className="ml-auto neo-badge neo-badge-high text-[10px] md:text-xs">High</span>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div className="absolute -bottom-6 -right-6 w-full h-full bg-[var(--primary)] border-4 border-black -z-10"></div>
+                <div className="absolute -bottom-4 -right-4 md:-bottom-6 md:-right-6 w-full h-full bg-[var(--primary)] border-4 border-black -z-10"></div>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="py-16 bg-black text-white">
-          <div className="max-w-6xl mx-auto px-8">
-            <div className="grid md:grid-cols-4 gap-8 text-center">
+        <section className="py-12 md:py-16 bg-black text-white">
+          <div className="max-w-6xl mx-auto px-4 md:px-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
               <div>
                 <p className="text-5xl font-black text-[var(--accent)]">10K+</p>
                 <p className="font-bold mt-2">Active Users</p>
